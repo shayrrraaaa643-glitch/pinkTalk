@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PinkTalk | Chat & Call</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <section id="authScreen" class="auth-screen">
+    <div class="auth-art">
+      <div class="brand"><span>♡</span> PinkTalk</div>
+      <div class="flower">✿</div>
+      <h1>Little moments,<br>closer connections.</h1>
+      <p>Your cozy corner to chat, call and stay close.</p>
+      <div class="art-card">
+        <div class="avatar big">♡</div>
+        <h3>Your people, your space</h3>
+        <p>Send a little love today. 🌷</p>
+      </div>
+    </div>
+
+    <div class="auth-form-wrap">
+      <form id="authForm" class="auth-form">
+        <div class="brand mobile-brand"><span>♡</span> PinkTalk</div>
+        <p class="eyebrow">WELCOME TO YOUR HAPPY PLACE</p>
+        <h2 id="authTitle">Welcome back!</h2>
+        <p id="authDescription">Sign in to chat with your people.</p>
+
+        <div id="nameGroup" class="field hidden">
+          <label for="displayName">Your name</label>
+          <input id="displayName" placeholder="Enter your name" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" type="email" required placeholder="you@example.com" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" required minlength="6" placeholder="At least 6 characters" autocomplete="current-password">
+        </div>
+
+        <p id="authError" class="error" aria-live="polite"></p>
+        <button class="primary full" id="authSubmit">Sign in →</button>
+        <p class="switch-text">
+          <span id="switchLabel">New to PinkTalk?</span>
+          <button type="button" id="switchAuth" class="link-btn">Create account</button>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <section id="appScreen" class="app-screen hidden">
+    <aside class="sidebar">
+      <div class="brand sidebar-brand"><span>♡</span> PinkTalk</div>
+      <p class="sidebar-label">YOUR SPACE</p>
+      <button class="nav-btn active" data-page="messages">☷ <span>Messages</span></button>
+      <button class="nav-btn" data-page="people">♧ <span>People</span></button>
+      <button class="nav-btn" data-page="calls">◉ <span>Call history</span></button>
+      <div class="sidebar-profile">
+        <div id="myAvatar" class="avatar">S</div>
+        <div class="profile-text"><strong id="myName">My profile</strong><small id="myEmail"></small></div>
+        <button id="logoutBtn" class="logout" title="Sign out">↪</button>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">A LITTLE HELLO GOES A LONG WAY</p>
+          <h1 id="pageHeading">Your messages</h1>
+        </div>
+        <div class="top-tag">♡ Stay connected</div>
+      </header>
+
+      <section id="messagesPage" class="messages-layout">
+        <aside class="people-panel">
+          <div class="panel-heading"><h2>Your people</h2><span>✿</span></div>
+          <input id="peopleSearch" class="search" placeholder="Search people..." type="search">
+          <p class="list-label">PEOPLE ON PINKTALK</p>
+          <div id="peopleList" class="people-list"></div>
+          <p class="hint">Create another account in a second browser to test real-time chat.</p>
+        </aside>
+
+        <section class="chat-panel">
+          <div id="welcomeChat" class="welcome-chat">
+            <div class="welcome-heart">♡</div>
+            <h2>A little happy place</h2>
+            <p>Choose a person and send them a message.</p>
+          </div>
+
+          <div id="activeChat" class="active-chat hidden">
+            <header class="chat-header">
+              <div class="person-heading">
+                <div id="chatAvatar" class="avatar">♡</div>
+                <div><strong id="chatName">Friend</strong><small id="chatEmail"></small></div>
+              </div>
+              <div class="chat-actions">
+                <button id="audioBtn" class="round-btn" title="Audio call">☎</button>
+                <button id="videoBtn" class="round-btn" title="Video call">▣</button>
+              </div>
+            </header>
+            <div id="messages" class="messages"></div>
+            <form id="messageForm" class="composer">
+              <input id="messageInput" placeholder="Write something sweet..." autocomplete="off" maxlength="2000">
+              <button class="send-btn" type="submit" aria-label="Send message">➤</button>
+            </form>
+          </div>
+        </section>
+      </section>
+
+      <section id="peoplePage" class="content-page hidden">
+        <div class="content-heading"><h2>People on PinkTalk</h2><p>Say hello to someone new. 💗</p></div>
+        <div id="peopleGrid" class="people-grid"></div>
+      </section>
+
+      <section id="callsPage" class="content-page hidden">
+        <div class="content-heading"><h2>Call history</h2><p>Your little catch-ups.</p></div>
+        <div id="callHistory" class="call-history">
+          <p class="hint">Calls you make in this session will appear here.</p>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <div id="callOverlay" class="call-overlay hidden">
+    <div class="call-card">
+      <button id="closeCall" class="close-call" aria-label="Close call">×</button>
+      <div id="callAvatar" class="avatar call-avatar">♡</div>
+      <p class="eyebrow" id="callTypeLabel">A LITTLE HELLO</p>
+      <h2 id="callName">Calling...</h2>
+      <p id="callStatus">Connecting...</p>
+      <div id="remoteVideoWrap" class="remote-video-wrap hidden">
+        <video id="remoteVideo" autoplay playsinline></video>
+      </div>
+      <video id="localVideo" class="local-video hidden" autoplay muted playsinline></video>
+      <div class="call-controls">
+        <button id="muteBtn" class="call-control">🎙<small>Mute</small></button>
+        <button id="endCallBtn" class="call-control end-call">☎<small>End</small></button>
+        <button id="cameraBtn" class="call-control">▣<small>Camera</small></button>
+      </div>
+      <p class="call-note">Allow microphone/camera access when prompted.</p>
+    </div>
+  </div>
+
+  <div id="incomingOverlay" class="call-overlay hidden">
+    <div class="call-card">
+      <div id="incomingAvatar" class="avatar call-avatar">♡</div>
+      <p class="eyebrow">INCOMING CALL</p>
+      <h2 id="incomingName">Someone is calling</h2>
+      <p id="incomingType">Audio call</p>
+      <div class="incoming-actions">
+        <button id="declineBtn" class="primary decline">Decline</button>
+        <button id="acceptBtn" class="primary">Accept ♡</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
+
+
+
+
